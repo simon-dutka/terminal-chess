@@ -10,6 +10,8 @@
     "author": "",
     "license": "MIT",
     "dependencies": {
-        "@inquirer/prompts": "^3.0.1"
+        "@inquirer/prompts": "^3.0.1",
+        "center-align": "^1.0.1",
+        "figlet": "^1.6.0"
     }
 }
