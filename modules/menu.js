@@ -1,4 +1,5 @@
 import { select } from '@inquirer/prompts';
+import singlePlayer from '../modules/singlePlayer.js';
 
 const menu = async () => {
     let menuChoice = await select({
@@ -20,6 +21,7 @@ const menu = async () => {
     });
     if (menuChoice === 0) {
         console.clear();
+        singlePlayer();
     }
     if (menuChoice === 1) {
         console.clear();

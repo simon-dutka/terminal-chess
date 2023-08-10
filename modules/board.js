@@ -34,5 +34,8 @@ class boardInfo {
     }
 }
 
-let sample = new boardInfo(board);
-console.log(sample);
+const showBoard = () => {
+    process.stdout.write(board);
+};
+
+export default showBoard;
