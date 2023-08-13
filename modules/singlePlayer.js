@@ -21,14 +21,19 @@ let squaresValues = {
     H: 7,
 };
 
-let squareKeysNum = Object.keys(squaresValues);
+let squaresKeysNum = Object.keys(squaresValues);
+let squaresKeysStr = Object.keys(squaresValues);
 
-squareKeysNum = squareKeysNum
+squaresKeysNum = squaresKeysNum
     .filter((el) => !isNaN(el))
     .map((x) => parseInt(x, 10));
 
+squaresKeysStr = squaresKeysStr.filter((el) => isNaN(el)).map((x) => x);
+
 const singlePlayer = () => {
     showBoard();
+
+    let pickedPiece;
 
     const pickPiece = async () => {
         // Get piece to move
@@ -36,23 +41,28 @@ const singlePlayer = () => {
             let validateStatus = true;
             do {
                 validateStatus = true;
-                let pieceChoice = await input({
+                pickedPiece = await input({
                     message: 'Select piece',
                 });
 
-                // If first is not a letter
-                if (squareKeysNum.includes(parseInt(pieceChoice[0]))) {
-                    validateStatus = false;
-                }
+                const validation = () => {
+                    if (
+                        // If first is not a letter
+                        squaresKeysNum.includes(parseInt(pickedPiece[0])) ||
+                        pickedPiece.length !== 2 ||
+                        squaresKeysStr.includes(pickedPiece[1])
+                    ) {
+                        validateStatus = false;
+                    }
+                };
 
-                if (pieceChoice.length !== 2) validateStatus = false;
-                console.log(validateStatus);
+                validation();
             } while (validateStatus === false);
         };
 
-        getPiece();
+        await getPiece();
 
-        let pickedPiece = pick
+        pickedPiece = pickedPiece
             // Upper letter
             .toUpperCase()
             // Make an array
