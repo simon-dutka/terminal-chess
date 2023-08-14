@@ -38,4 +38,7 @@ const showBoard = () => {
     process.stdout.write(board);
 };
 
-export default showBoard;
+let defaultBoard = new boardInfo(board);
+
+export { defaultBoard, showBoard };
+

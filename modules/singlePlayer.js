@@ -1,6 +1,6 @@
 import { input } from '@inquirer/prompts';
 
-import showBoard from './board.js';
+import { showBoard, defaultBoard } from './board.js';
 
 let squaresValues = {
     1: 0,
@@ -33,7 +33,7 @@ squaresKeysStr = squaresKeysStr.filter((el) => isNaN(el)).map((x) => x);
 const singlePlayer = () => {
     showBoard();
 
-    let pickedPiece;
+    let pickedPiece, pickedMove;
 
     const pickPiece = async () => {
         // Get piece to move
@@ -58,6 +58,14 @@ const singlePlayer = () => {
 
                 validation();
             } while (validateStatus === false);
+
+            const movePiece = async () => {
+                pickedMove = await input({
+                    message: 'Move to',
+                });
+            };
+
+            movePiece();
         };
 
         await getPiece();
