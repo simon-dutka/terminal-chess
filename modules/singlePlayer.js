@@ -36,39 +36,44 @@ const singlePlayer = () => {
     let pickedPiece, pickedMove;
 
     const pickPiece = async () => {
+        let validateStatus;
+
+        const validation = (answer) => {
+            if (
+                // If first is not a letter
+                squaresKeysNum.includes(parseInt(answer[0])) ||
+                answer.length !== 2 ||
+                squaresKeysStr.includes(answer[1])
+            ) {
+                validateStatus = false;
+            }
+        };
+
         // Get piece to move
         const getPiece = async () => {
-            let validateStatus = true;
             do {
                 validateStatus = true;
                 pickedPiece = await input({
                     message: 'Select piece',
                 });
 
-                const validation = () => {
-                    if (
-                        // If first is not a letter
-                        squaresKeysNum.includes(parseInt(pickedPiece[0])) ||
-                        pickedPiece.length !== 2 ||
-                        squaresKeysStr.includes(pickedPiece[1])
-                    ) {
-                        validateStatus = false;
-                    }
-                };
-
-                validation();
+                validation(pickedPiece);
             } while (validateStatus === false);
+        };
 
-            const movePiece = async () => {
+        const movePiece = async () => {
+            do {
+                validateStatus = true;
                 pickedMove = await input({
                     message: 'Move to',
                 });
-            };
 
-            movePiece();
+                validation(pickedMove);
+            } while (validateStatus === false);
         };
 
         await getPiece();
+        await movePiece();
 
         pickedPiece = pickedPiece
             // Upper letter
