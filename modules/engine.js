@@ -2,22 +2,22 @@ import { input } from '@inquirer/prompts';
 import { showBoard, defaultBoard } from './board.js';
 
 let squaresValues = {
-    1: 0,
-    2: 8,
-    3: 16,
-    4: 24,
-    5: 32,
-    6: 40,
-    7: 48,
-    8: 56,
+    1: 1,
+    2: 2,
+    3: 3,
+    4: 4,
+    5: 5,
+    6: 6,
+    7: 7,
+    8: 8,
     a: 0,
-    b: 1,
-    c: 2,
-    d: 3,
-    e: 4,
-    f: 5,
-    g: 6,
-    h: 7,
+    b: 8,
+    c: 16,
+    d: 24,
+    e: 32,
+    f: 40,
+    g: 48,
+    h: 56,
 };
 
 let squaresKeysNum = Object.keys(squaresValues);
@@ -78,21 +78,15 @@ const engine = async () => {
         } while (validationStatus === false);
     };
 
-    const getValueOfPiece = async (itemToGetValue) => {
-        let item = itemToGetValue
-            // Upper letter
-            .toUpperCase()
-            // Make an array
-            .split('')
-            .map((el) => {
-                // Get value of picked piece
-                el = squaresValues[el];
-                // Return elements as numbers
-                return parseInt(el, 10);
-            });
+    const getValueOfPiece = async (pickedPiece) => {
+        let pickedSquareValue = 0;
 
-        // Add value to get correct piece
-        item = itemToGetValue[0] + itemToGetValue[1];
+        pickedPiece.split('').forEach((el) => {
+            console.log(squaresValues[el]);
+            pickedSquareValue += squaresValues[el];
+        });
+
+        return pickedSquareValue;
     };
 
     let id = 0;
@@ -105,6 +99,7 @@ const engine = async () => {
     await getPiece();
     await movePiece();
     await movePawn(pickedPiece, pickedMove);
+    await getValueOfPiece(pickedPiece);
 };
 
 export default engine;
