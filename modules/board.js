@@ -1,30 +1,30 @@
-let board = `
-    1   R N B Q K B N R
-    2   p p p p p p p p
-    3   · · · · · · · ·
-    4   · · · · · · · ·
-    5   · · · · · · · ·
-    6   · · · · · · · ·
-    7   p p p p p p p p
-    8   R N B Q K B N R
-
-        A B C D E F G H
+// Todo: Add helping letters and digits to board
+//* Why it isn't here? Constructor getting this string and convert to array - help for changing positions
+let defaultBoard = `
+        R N B Q K B N R
+        p p p p p p p p
+        · · · · · · · ·
+        · · · · · · · ·
+        · · · · · · · ·
+        · · · · · · · ·
+        p p p p p p p p
+        R N B Q K B N R
 `;
 
 let squaresStatus = {
-    R: 'Rook',
-    N: 'Knight',
-    B: 'Bishoop',
-    Q: 'Queen',
-    K: 'King',
+    R: 'rook',
+    N: 'knight',
+    B: 'bishoop',
+    Q: 'queen',
+    K: 'king',
     p: 'pawn',
-    '·': 'Empty',
+    '·': 'empty',
 };
 
 class boardInfo {
     constructor(board) {
         let boardPositions = board
-            .replace(/[1-9]|[\s+]|[A-H]/g, '')
+            .replace(/[1-9]|[\s+]/g, '')
             .split('')
             .map((el) => [...el]);
 
@@ -35,10 +35,11 @@ class boardInfo {
 }
 
 const showBoard = () => {
-    process.stdout.write(board);
+    process.stdout.write(defaultBoard);
 };
 
-let defaultBoard = new boardInfo(board);
+let board = new boardInfo(defaultBoard);
 
-export { defaultBoard, showBoard };
 
+
+export { board, showBoard };
