@@ -31,7 +31,7 @@ squaresKeysNum = squaresKeysNum
 squaresKeysStr = squaresKeysStr.filter((el) => isNaN(el)).map((x) => x);
 
 const engine = async () => {
-    let validationStatus, pickedPiece, pickedMove;
+    let validationStatus, firstSquare, secondSquare;
 
     // ToDo:  -check if square is not empty; -check if move is allowed -check if picked square is not the same square
 
@@ -50,33 +50,38 @@ const engine = async () => {
         }
     };
 
-    const movePieceValidation = (answer) => {
-        defaultValidation(answer);
-        if (pickedPiece === answer) {
+    const secondSquareValidation = (answer) => {
+        if (firstSquare === answer) {
             console.log('Piece to move cannot be current pawn piece');
             validationStatus = false;
         }
     };
 
-    // Get piece to move
-    const getPiece = async () => {
+    const getFirstSquare = async () => {
+        // User pick square with piece on board
         do {
-            pickedPiece = await input({
+            firstSquare = await input({
                 message: 'Select piece',
             });
 
-            defaultValidation(pickedPiece);
+            defaultValidation(firstSquare);
         } while (validationStatus === false);
+
+        // then get value of square position on board
+        return await getValueOfPiece(firstSquare);
     };
 
-    const movePiece = async () => {
+    // User pick square to mvoe piece to this square
+    const getSecondSquare = async () => {
         do {
-            pickedMove = await input({
+            secondSquare = await input({
                 message: 'Move to',
             });
-
-            movePieceValidation(pickedMove);
+            defaultValidation(secondSquare);
+            secondSquareValidation(secondSquare);
         } while (validationStatus === false);
+
+        return await getValueOfPiece(secondSquare);
     };
 
     const getValueOfPiece = async (pickedPiece) => {
@@ -97,10 +102,10 @@ const engine = async () => {
         defaultBoard.boardPositions.splice(id + 8, 1, item);
     };
 
-    await getPiece();
-    await movePiece();
     await movePawn(pickedPiece, pickedMove);
     await getValueOfPiece(pickedPiece);
+    await getFirstSquare();
+    await getSecondSquare();
 };
 
 export default engine;
