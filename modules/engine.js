@@ -1,5 +1,6 @@
 import { input } from '@inquirer/prompts';
 import { showBoard, defaultBoard } from './board.js';
+import { showBoard, board } from './board.js';
 
 let squaresValues = {
     1: 1,
