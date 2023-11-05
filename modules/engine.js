@@ -84,11 +84,14 @@ const engine = async () => {
         return await getValueOfPiece(secondSquare);
     };
 
-    const getValueOfPiece = async (pickedPiece) => {
+    // Square value is postion of square on board
+    // Example a1 = 0 -> a = 0 (first column) + 1 (first row)
+    const getValueOfPiece = async (piece) => {
         let pickedSquareValue = 0;
 
-        pickedPiece.split('').forEach((el) => {
-            console.log(squaresValues[el]);
+        // Letters are multiples of 8 (because we got 8 columns)
+        // We get value after add value of letter to digit (row) set by user
+        piece.split('').forEach((el) => {
             pickedSquareValue += squaresValues[el];
         });
 
